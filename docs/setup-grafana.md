@@ -21,7 +21,7 @@ cloudflared tunnel login
 - Browser öffnet Cloudflare Login
 - Zertifikat wird lokal gespeichert: `/home/jp/.cloudflared/cert.pem`
 
-2. **Tunnel erstellen**
+1. **Tunnel erstellen**
 
 ```bash
 cloudflared tunnel create grafana
@@ -29,7 +29,7 @@ cloudflared tunnel create grafana
 
 - Tunnel-ID wird angezeigt: `---`
 
-3. **Tunnel-DNS-Route erstellen**
+1. **Tunnel-DNS-Route erstellen**
 
 ```bash
 cloudflared tunnel route dns grafana monitor.pngrtz.com
@@ -37,7 +37,7 @@ cloudflared tunnel route dns grafana monitor.pngrtz.com
 
 - DNS-Eintrag (CNAME) wird bei Cloudflare gesetzt
 
-4. **Tunnel-Konfig speichern**
+1. **Tunnel-Konfig speichern**
 
 - Datei: `/etc/cloudflared/config.yml`
 
@@ -51,7 +51,7 @@ ingress:
   - service: http_status:404
 ```
 
-5. **Tunnel als Service starten**
+1. **Tunnel als Service starten**
 
 ```bash
 sudo cloudflared service install
@@ -141,7 +141,8 @@ docker logs -f grafana
 ```
 https://monitor.pngrtz.com
 ```
-2. Datenquelle hinzufügen:
+
+1. Datenquelle hinzufügen:
 
 2.1. Auf Verbindungen -> Neu Verbindung hinzufügen -> Prometheus
 
@@ -153,7 +154,7 @@ http://prometheus:9090
 
 2.3. Auf Speichern und Testen drücken
 
-3. Dashboard hinzufügen
+1. Dashboard hinzufügen
 
 3.1. Import von Grafana.com
 3.2. ID: 1860 eingeben
@@ -172,5 +173,4 @@ http://prometheus:9090
 
 ## 8. Aktueller Stand
 
-- Cloudflare Tunnel liefert HTTPS unter `monitor.pngrtz.com`
-- Grafana ist korrekt hinter Proxy konfiguriert
+- muss noch alles ausgefürt werden

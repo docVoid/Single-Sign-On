@@ -1,2 +1,3 @@
 # Ignore local env file for Keycloak admin credentials
 /setup/linux/.env
+.vs
