@@ -2,7 +2,7 @@
 
 ## 1. Ziel
 
-EineGrafana Instanz auf einem Raspberry Pi 5, erreichbar über eine externe Domain (`monitor.pngrtz.com`), mit HTTPS über Cloudflare Tunnel.
+Eine Grafana Instanz auf einem Raspberry Pi 5, erreichbar über eine externe Domain (`monitor.pngrtz.com`), mit HTTPS über Cloudflare Tunnel.
 
 ## 2. Hardware & Software
 
@@ -77,17 +77,14 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-    networks:
-      - ???? ##needs to be checked
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    networks:
+      - default
+      - keycloak_net
     environment:
       - GF_SERVER_ROOT_URL=https://monitor.pngrtz.com
       - GF_SERVER_HTTP_PORT=3000
@@ -102,9 +99,6 @@ services:
       - GF_AUTH_GENERIC_OAUTH_API_URL=http://keycloak:8080/realms/RBS-Ulm/protocol/openid-connect/userinfo
       - GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE=true
       - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(resource_access.grafana.roles[*], 'admin') && 'Admin' || 'Viewer'
-    networks:
-      - default
-      - keycloak_net
     ports:
       - "3000:3000"
     restart: always
@@ -120,7 +114,6 @@ networks:
   keycloak_net:
     external: true
     name: keycloak_default
-
 ```
 
 ### 4.2 Starten der Container
@@ -138,7 +131,7 @@ docker logs -f grafana
 
 1. Grafana öffnen:
 
-```
+```url
 https://monitor.pngrtz.com
 ```
 
@@ -148,7 +141,7 @@ https://monitor.pngrtz.com
 
 2.2. Prometheus Server URL setzten:
 
-```
+```url
 http://prometheus:9090
 ```
 
@@ -158,7 +151,7 @@ http://prometheus:9090
 
 3.1. Import von Grafana.com
 3.2. ID: 1860 eingeben
-3.3. Aud Laden clicken und Prometheus als Datenquelle auswählen
+3.3. Auf **Laden** clicken und Prometheus als Datenquelle auswählen
 
 ## 6. Browser-Test
 
@@ -169,7 +162,7 @@ http://prometheus:9090
 
 ## 7. Hinweise / Troubleshooting
 
-- Keycoak client configuratiokn findet zum größten Teil in der docker-compose.yml statt.
+- Keycoak client configuration findet zum größten Teil in der docker-compose.yml statt.
 
 ## 8. Aktueller Stand
 
