@@ -198,6 +198,6 @@ Von dieser Stelle aus fügt man die *issuer_url* und die *client_id* aus Keycloa
 - Erwartet: Immich Login-Seite mit OAuth Login Option
 - HTTPS aktiv
 
-## 7. Aktueller Stand
+## 6. Aktueller Stand
 
 - muss noch alles ausgefürt werden
